@@ -261,7 +261,7 @@ export class SpeechExplorer extends AbstractExplorer<string> implements KeyExplo
 
   public summary(node: HTMLElement): HTMLElement {
     this.item.speechGenerator.summary(node);
-    const speechGenerator = Sre.getSpeechGenerator('Summary');
+    // const speechGenerator = Sre.getSpeechGenerator('Summary');
     return node;
   }
 
@@ -399,7 +399,6 @@ export class SpeechExplorer extends AbstractExplorer<string> implements KeyExplo
     // TODO (v4): This is a hack to avoid double voicing on initial startup!
     // Make that cleaner and remove force as it is not really used!
     // let noUpdate = force;
-    force = false;
     if (!this.active && !force) return;
     this.pool.unhighlight();
     // let nodes = this.walker.getFocus(true).getNodes();
@@ -494,11 +493,9 @@ export class SpeechExplorer extends AbstractExplorer<string> implements KeyExplo
         return;
       }
     }
-    let result = null;
     if (this.active) {
-      result = this.Move(event);
       this.stopEvent(event);
-      if (result) {
+      if (this.Move(event)) {
         this.Update();
         return;
       }
